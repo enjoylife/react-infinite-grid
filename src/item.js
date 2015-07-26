@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var PureRenderMixin = React.addons.PureRenderMixin;
 
-var Item = React.createClass({
+var Item = React.createClass({displayName: "Item",
 
     mixins: [ PureRenderMixin ],
 
@@ -19,7 +19,7 @@ var Item = React.createClass({
 	},
 
     render: function() {
-        
+
     	var style = {
     		width: this._itemWidth() - this.props.padding,
     		height: this.props.dimensions.height - this.props.padding,
@@ -30,9 +30,9 @@ var Item = React.createClass({
         var ItemRenderer = this.props.ItemRenderer;
 
         return(
-            <div ref="item" className={this.props.itemClassName} key={this.props.key+this.props.index} style={style}>
-            	<ItemRenderer {...this.props.data}/>
-            </div>
+            React.createElement("div", {ref: "item", className: this.props.itemClassName, key: this.props.key+this.props.index, style: style},
+            	React.createElement(ItemRenderer, React.__spread({},  this.props.data))
+            )
         );
     },
 });

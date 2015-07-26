@@ -2,7 +2,7 @@ var React = require('react/addons');
 var PureRenderMixin = React.addons.PureRenderMixin;
 var Item = require('./item');
 
-var InfiniteGrid = React.createClass({
+var InfiniteGrid = React.createClass({displayName: "InfiniteGrid",
 
     mixins: [ PureRenderMixin ],
 
@@ -54,7 +54,7 @@ var InfiniteGrid = React.createClass({
             height: this.props.wrapperHeight,
             WebkitOverflowScrolling: 'touch',
         };
-    },
+      },
 
     _gridStyle: function() {
         return {
@@ -216,11 +216,11 @@ var InfiniteGrid = React.createClass({
         }
 
         return(
-            <div ref="wrapper" className="infinite-grid-wrapper" onScroll={this._scrollListener} style={this._wrapperStyle()}>
-                <div ref="grid" className="infinite-grid" style={this._gridStyle()}>
-                    {entries}
-                </div>
-            </div>
+            React.createElement("div", {ref: "wrapper", className: "infinite-grid-wrapper", onScroll: this._scrollListener, style: this._wrapperStyle()},
+                React.createElement("div", {ref: "grid", className: "infinite-grid", style: this._gridStyle()},
+                    entries
+                )
+            )
         );
     },
 });
